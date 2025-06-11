@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Style-It | My Page</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mypage.css') }}">
+
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+  <div class="box">
+    <h1>Welcome, {{ username }}!</h1>
+    <p><strong>Gender:</strong> {{ gender }}</p>
+
+    <div class="password-section">
+      <label for="pw"><strong>Password:</strong></label>
+      <input type="password" id="pw" value="{{ password }}" readonly>
+      <button onclick="togglePW()">
+        👁️ </button>
+    </div>
+
+    <h2>Style History</h2>
+    <div id="history-box" class='history-box'>
+      {% if history_data %}
+          {% for date, style, query, img, city, weather_temp, weather_feels_like, rain_status, wind_status in history_data %}
+          <div class="history-card">
+            <div class="history-left">
+              <div class="text-block">
+                <p class="history-title">📅 {{ date }} | 📍 {{ city }} 🎨 {{ style }}</p>
+                <p>🌡️ {{ weather_temp|int }}°C (Feels like {{ weather_feels_like|int }}°C)</p>
+                <p>{{ rain_status }} | {{ wind_status }}</p>
+                <p>🔍 {{ query }}</p>
+              </div>
+          
+              <div class="pinterest-wrapper">
+                <a href="https://www.pinterest.com/search/pins/?q={{ query|replace(' ', '+') }}" target="_blank" class="pinterest-button">
+                  <i class="fab fa-pinterest"></i> Pinterest
+                </a>
+              </div>
+            </div>
+          
+            <div class="history-img">
+              <img src="{{ img }}" alt="outfit image">
+            </div>
+          </div>
+          {% endfor %}
+      {% else %}
+          <p>No History yet!</p>
+      {% endif %}
+    </div>
+
+    <div class="circle-expand-buttons">
+      <a href="{{ url_for('weather_style') }}" class="circle-expand-btn">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        <span>Style-It Again</span>
+      </a>
+      <a href="{{ url_for('index') }}" class="circle-expand-btn">
+        <ion-icon name="log-out-outline"></ion-icon> <span>Logout</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    function togglePW() {
+      const pw = document.getElementById("pw");
+      const iconButton = document.querySelector(".password-section button");
+      const isHidden = pw.type === "password";
+
+      pw.type = isHidden ? "text" : "password";
+      iconButton.innerHTML = isHidden ? "‍️" : "👁️";
+    }
+
+    document.addEventListener('mousemove', e => {
+    const xPct = (e.clientX / window.innerWidth)  * 100;
+    const yPct = (e.clientY / window.innerHeight) * 100;
+    document.documentElement.style.setProperty('--x', `${xPct}%`);
+    document.documentElement.style.setProperty('--y', `${yPct}%`);
+    });
+  </script>
+</body>
+</html>

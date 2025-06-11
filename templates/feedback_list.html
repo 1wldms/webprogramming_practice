@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedback List</title>
+    </head>
+    <body>
+    <h2>📋 피드백 모음</h2>
+    <ul>
+        {% for name, content, created_at in feedbacks %}
+        <li><strong>{{ name }}</strong> ({{ created_at }}):<br> {{ content }}</li><br>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('index') }}">🏠 메인으로 돌아가기</a>
+</body>
+</html>

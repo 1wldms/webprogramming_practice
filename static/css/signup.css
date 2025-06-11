@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+:root {
+    --x: 50%;
+    --y: 50%;
+    --bx: 50%;
+    --by: 50%;
+}
+
+/* full-page layout */
+body {
+    background: radial-gradient(circle at var(--x) var(--y),
+                                #f5f7fa 0%, #474747 100%);
+                                display:flex; align-items:center; justify-content:center;
+                                height:100vh; margin:0; font-family:'Poppins',sans-serif;
+}
+
+/* signup card */
+.signup-box {
+    background: white;
+    padding: 50px 40px;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 420px;
+    animation: fadeIn 0.6s ease-in-out;
+    position:relative;
+    overflow:hidden;
+}
+
+
+.signup-box h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+}
+
+  /* form elements */
+.form-group,
+.gender-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.form-group label,
+.gender-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #444;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    padding-right: 42px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* eye icon */
+.toggle-password {
+    position: absolute;
+    top: 40px;
+    right: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #777;
+    transition: color 0.2s;
+}
+
+.toggle-password:hover {
+    color: #222;
+}
+
+/* gender radios inline */
+.gender-group label {
+    display: inline-block;
+    margin-right: 18px;
+    font-size: 15px;
+}
+
+/* submit button */
+.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: not-allowed;
+    opacity: 0.5;
+    transition: background-color 0.3s, transform 0.2s ease;
+}
+
+.btn.active {           /* will be enabled by JS */
+    cursor: pointer;
+    opacity: 1;
+}
+
+.btn.active:hover {
+    background-color: #333;
+    transform: translateY(-2px);
+}
+
+.back-link {
+    display: block;
+    margin-top: 25px;
+    font-size: 14px;
+    text-align: center;
+    color: #333;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* fade-in card */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Style-It | Welcome</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mainpage.css') }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="login-box">
+    <h2>Welcome to Style-It!</h2>
+    <p>Let us help you choose the perfect outfit based on your current location, weather, and personal style. Stay comfortable and stylish, no matter where you are!</p>
+
+    <div class="btn-group">
+      <div class="btn-group">
+        {% if isLogin %}
+          <a href="{{ url_for('logout') }}" class="btn">Log out</a>
+        {% else %}
+          <a href="{{ url_for('login') }}" class="btn">Log in</a>
+          <a href="{{ url_for('signup') }}" class="btn">Sign up</a>
+        {% endif %}
+  </div>
+
+
+  <button id="feedback-btn">💬 Feedback</button>
+
+  <div id="feedback-modal" class="hidden">
+    <form id="feedback-form">
+      <h2 style="margin-bottom: 20px;">💌 Feedback</h2>
+  
+      <div class="form-group">
+        <label for="feedback-name">Your Name</label>
+        <input type="text" id="feedback-name" name="name" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="feedback-content">Your Feedback</label>
+        <textarea id="feedback-content" name="content" rows="4" required></textarea>
+      </div>
+  
+      <button type="submit" class="btn active">Submit</button>
+      <button type="button" class="btn" onclick="closeFeedback()">Close</button>
+    </form>
+  </div>
+
+  <!-- interactive gradient follow-mouse -->
+<script>
+  document.addEventListener('mousemove', e => {
+    const xPct = (e.clientX / window.innerWidth)  * 100;
+    const yPct = (e.clientY / window.innerHeight) * 100;
+    document.documentElement.style.setProperty('--x', `${xPct}%`);
+    document.documentElement.style.setProperty('--y', `${yPct}%`);
+  });
+  document.getElementById("feedback-btn").onclick = function () {
+    document.getElementById("feedback-modal").classList.remove("hidden");
+  };
+  
+  function closeFeedback() {
+    document.getElementById("feedback-modal").classList.add("hidden");
+  }
+  
+  document.getElementById("feedback-form").onsubmit = async function (e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+  
+    const res = await fetch("/submit-feedback", {
+      method: "POST",
+      body: formData
+    });
+  
+    const text = await res.text();
+    alert(text);
+    closeFeedback();
+  };
+</script>
+
+</body>
+</html>

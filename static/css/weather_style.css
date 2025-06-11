@@ -1,0 +1,24 @@
+.top-nav {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background-color: #f2f2f2;
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.top-nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.top-nav a:hover {
+    color: #007BFF;
+}
+
+body {
+    font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+  /* 혹은 원하는 웹폰트(ex: 'Noto Sans KR', 'Roboto', 등)로 통일 가능 */
+}

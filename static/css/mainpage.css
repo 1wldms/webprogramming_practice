@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+:root {
+    --x: 50%;
+    --y: 50%;
+    --bx: 50%;
+    --by: 50%;
+}
+
+body {
+    background: radial-gradient(circle at var(--x) var(--y),
+                                #f5f7fa 0%, #474747 100%);
+                                display:flex; align-items:center; justify-content:center;
+                                height:100vh; margin:0; font-family:'Poppins',sans-serif;
+}
+
+/* Login box styling */
+.login-box {
+    background: white;
+    padding: 60px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+.login-box h2 {
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 32px;
+    color: #222;
+}
+
+.login-box p {
+    font-size: 17px;
+    color: #555;
+    margin-bottom: 35px;
+    line-height: 1.6;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    background-color: #000;
+    color: #fff;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #333;
+    transform: translateY(-2px);
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+#feedback-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #000;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 30px;
+    font-size: 14px;
+    cursor: pointer;
+    z-index: 999;
+}
+
+#feedback-modal {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 320px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 12px 20px rgba(0,0,0,0.3);
+    z-index: 1000;
+}
+
+#feedback-modal.hidden {
+    display: none;
+}
+
+#feedback-modal .form-group {
+    margin-bottom: 15px;
+}
+
+#feedback-modal label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+#feedback-modal input,
+#feedback-modal textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
