@@ -9,7 +9,6 @@ from dotenv import load_dotenv
 import re
 import datetime 
 
-
 app = Flask(__name__)
 app.secret_key = "wekfjl`klkAWldI109nAKnooionrg923jnn"
 
@@ -19,7 +18,6 @@ client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 weather_api_key = os.getenv("WEATHER_API_KEY")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 CX = os.getenv("CX_ID")
-
 
 DB_user = 'user_info.db'
 
@@ -53,7 +51,7 @@ def init_db():
                     FOREIGN KEY(username) REFERENCES users(username)
                 );
                 ''')
-    
+
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS feedback (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -62,12 +60,9 @@ def init_db():
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
     ''')
-    
+
     conn.commit()
     conn.close()
-
-
-
 
 def get_weather_info(city):
     lang = 'eng'
@@ -82,7 +77,6 @@ def get_weather_info(city):
         return weather_data
     except:
         return None
-
 
 def parse_weather(weather_data, city):
     temp = weather_data['main']['temp']
@@ -136,7 +130,13 @@ def parse_weather(weather_data, city):
 
     return (weather_info, temp, feels_like, temp_max, temp_min,
         cloud_status, humidity, wind_status, description, wind_speed,
-        rain_status, wind_status_txt)
+        rain_status, wind_status_txt, rain)
+
+def is_night_time():
+    hour = datetime.datetime.now().hour
+    return hour < 6 or hour >= 18
+
+
 def get_pinterest_images(query, google_api_key, cx_id):
     url = "https://www.googleapis.com/customsearch/v1"
     params = {
@@ -289,9 +289,8 @@ def result():
         flash("Failed to fetch weather data.")
         return redirect(url_for('weather_style'))
 
-    weather_info, temp, feels_like, temp_max, temp_min, cloud_status, humidity, wind_status, description, wind_speed, rain_status, wind_status_txt = parse_weather(weather_data, city)
-
-
+    weather_info, temp, feels_like, temp_max, temp_min, cloud_status, humidity, wind_status, description, wind_speed, rain_status, wind_status_txt, is_raining = parse_weather(weather_data, city)
+    hour = datetime.datetime.now().hour
     #gpt prompt 보내기
     try:
 
@@ -387,31 +386,34 @@ def result():
                         temp, feels_like, rain_status, wind_status_txt
                         ))
 
-
     return render_template("result.html",
-                            city=city,
-                            style=style,
-                            style_icon=style_icon,
-                            temp=temp,
-                            feels_like=feels_like,
-                            temp_max=temp_max,
-                            temp_min=temp_min,
-                            cloud_status=cloud_status,
-                            humidity=humidity,
-                            wind_status=wind_status,
-                            description=description,
-                            gpt_reply=gpt_reply,
-                            outfit=outfit_dict,
-                            emoji=emoji_map,
-                            search_url=search_url,
-                            image_urls=image_urls,
-                            search_query=search_query,
-                            # New calendar data
-                            current_date=current_date_formatted,
-                            current_month_name=current_month_name,
-                            current_year=current_year,
-                            current_day=current_day
-)
+                        city=city,
+                        style=style,
+                        style_icon=style_icon,
+                        temp=temp,
+                        feels_like=feels_like,
+                        temp_max=temp_max,
+                        temp_min=temp_min,
+                        cloud_status=cloud_status,
+                        humidity=humidity,
+                        wind_status=wind_status,
+                        description=description,
+                        gpt_reply=gpt_reply,
+                        outfit=outfit_dict,
+                        emoji=emoji_map,
+                        search_url=search_url,
+                        image_urls=image_urls,
+                        search_query=search_query,
+                        current_date=current_date_formatted,
+                        current_month_name=current_month_name,
+                        current_year=current_year,
+                        current_day=current_day,
+                        is_night=is_night_time(),
+                        is_raining=is_raining,
+                        hour=hour
+                        ) 
+
+
     
 @app.route('/submit-feedback', methods=['POST'])
 def submit_feedback():
