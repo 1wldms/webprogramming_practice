@@ -11,6 +11,8 @@ import datetime
 import pytz
 from geopy.geocoders import Nominatim
 from timezonefinder import TimezoneFinder
+import pandas as pd
+from flask import render_template
 
 app = Flask(__name__)
 app.secret_key = "wekfjl`klkAWldI109nAKnooionrg923jnn"
@@ -470,3 +472,13 @@ def logout():
 if __name__ == "__main__":
     init_db()
     app.run(host='0.0.0.0', port=5050, debug=True)
+
+
+app = Flask(__name__)
+
+@app.route('/Style-It', methods=["GET"])
+def weather_style():
+    df = pd.read_csv('cities.csv')  # Ensure this file is in the same folder as this .py file
+    city_list = sorted(df['City'].dropna().unique())
+    return render_template('weather_style.html', cities=city_list)
+
