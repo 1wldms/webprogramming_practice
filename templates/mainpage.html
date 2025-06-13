@@ -19,6 +19,7 @@
       <div class="btn-group">
         {% if isLogin %}
           <a href="{{ url_for('logout') }}" class="btn">Log out</a>
+          <a href="{{ url_for('intropage') }}" class="btn">Home page</a>
         {% else %}
           <a href="{{ url_for('login') }}" class="btn">Log in</a>
           <a href="{{ url_for('signup') }}" class="btn">Sign up</a>
