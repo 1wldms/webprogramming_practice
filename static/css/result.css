@@ -352,11 +352,20 @@ header h1 {
   position: relative;
   width: 100%;
   min-height: 280px;
-  background: linear-gradient(to top, #1e3c72, #2a5298);
   border-radius: 12px;
   overflow: hidden;
-  padding: 30px 20px 10px 20px; 
-  color: #fff !important;
+  padding: 30px 20px 10px 20px;
+  color: white;
+  transition: background 0.5s ease;
+}
+
+body[data-night="false"] .animated-widget .frame {
+  background: linear-gradient(to top, #87CEFA, #B0E0E6); /* Light blue shades */
+}
+
+/* If night time */
+body[data-night="true"] .animated-widget .frame {
+  background: linear-gradient(to top, #1e3c72, #2a5298); /* Deep night blue */
 }
 
 .animated-widget .moon {
@@ -409,14 +418,14 @@ header h1 {
 
 .animated-widget .sun {
   position: absolute;
-  top: 35px;
-  right: 30px;
-  width: 80px;
-  height: 80px;
-  background: radial-gradient(circle, #FFD700 40%, #FFA500 100%);
+  top: 20px;
+  right: 10px;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, #FFD700, #FFA500);
   border-radius: 50%;
-  box-shadow: 0 0 20px 8px rgba(255, 200, 0, 0.6);
-  animation: sunPulse 4s ease-in-out infinite;
+  box-shadow: 0 0 30px 10px rgba(255, 215, 0, 0.6);
+  animation: pulseSun 4s ease-in-out infinite;
 }
 
 @keyframes sunPulse {
