@@ -148,8 +148,7 @@ def parse_weather(weather_data, city):
         rain_status, wind_status_txt, rain)
 
 
-def is_night_time():
-    hour = datetime.datetime.now().hour
+def is_night_time(hour):
     return hour < 6 or hour >= 18
 
 
@@ -426,7 +425,7 @@ def result():
                         current_month_name=current_month_name,
                         current_year=current_year,
                         current_day=current_day,
-                        is_night=is_night_time(),
+                        is_night=is_night_time(hour),
                         is_raining=is_raining,
                         hour=hour
                         )

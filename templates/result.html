@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body data-hour="{{ hour }}">
+<body data-night="{{ 'true' if is_night else 'false' }}">
   <div class="container">
     <header>
       <h1>Weather and Style Recommendation</h1>
@@ -64,7 +64,7 @@
               <div class="front">
                 <div>
                   <div class="temperature">{{ temp|round(0) }}°</div>
-                  <div class="icons">
+                 <div class="icons">
                     <i class="fas fa-wind"></i><br/>
                     <i class="fas fa-tint"></i>
                   </div>
@@ -191,21 +191,27 @@
     });
   </script>
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const hour = parseInt(document.body.dataset.hour, 10);
+  window.onload = function () {
+    const isNight = document.body.dataset.night === "true";
     const frame = document.querySelector(".animated-widget .frame");
 
-    if (hour >= 6 && hour < 12) {
-      // Morning – light blue
-      frame.style.background = "linear-gradient(to top, #d0eaff, #a0cfff)";
-    } else if (hour >= 12 && hour < 18) {
-      // Afternoon – moderate blue
-      frame.style.background = "linear-gradient(to top, #86bdf2, #5da7e6)";
-    } else {
-      // Evening/Night – dark blue (default)
-      frame.style.background = "linear-gradient(to top, #1e3c72, #2a5298)";
+    // ✅ Debugging output (add here)
+    console.log("isNight:", isNight);
+    console.log("frame exists:", !!frame);
+
+    if (!frame) {
+      console.error("Weather widget frame not found.");
+      return;
     }
-  });
+
+    if (isNight) {
+      // Night – dark blue
+      frame.style.background = "linear-gradient(to top, #1e3c72, #2a5298)";
+    } else {
+      // Day – light blue
+      frame.style.background = "linear-gradient(to top, #d0eaff, #a0cfff)";
+    }
+  };
 </script>
 </body>
 </html>
