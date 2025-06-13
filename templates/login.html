@@ -39,15 +39,5 @@
 
   <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 
-  <!-- interactive gradient follow-mouse -->
-<script>
-  document.addEventListener('mousemove', e => {
-    const xPct = (e.clientX / window.innerWidth)  * 100;
-    const yPct = (e.clientY / window.innerHeight) * 100;
-    document.documentElement.style.setProperty('--x', `${xPct}%`);
-    document.documentElement.style.setProperty('--y', `${yPct}%`);
-  });
-</script>
-
 </body>
 </html>
