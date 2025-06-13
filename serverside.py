@@ -8,6 +8,9 @@ import traceback
 from dotenv import load_dotenv
 import re
 import datetime 
+import pytz
+from geopy.geocoders import Nominatim
+from timezonefinder import TimezoneFinder
 
 app = Flask(__name__)
 app.secret_key = "wekfjl`klkAWldI109nAKnooionrg923jnn"
@@ -63,6 +66,18 @@ def init_db():
 
     conn.commit()
     conn.close()
+
+def get_timezone_from_city(city_name):
+    try:
+        geolocator = Nominatim(user_agent="styleit-app")
+        location = geolocator.geocode(city_name)
+        if location:
+            tf = TimezoneFinder()
+            tz_name = tf.timezone_at(lng=location.longitude, lat=location.latitude)
+            return tz_name
+    except Exception as e:
+        print(f"Error finding timezone for {city_name}: {e}")
+    return "UTC"  # fallback
 
 def get_weather_info(city):
     lang = 'eng'
@@ -131,6 +146,7 @@ def parse_weather(weather_data, city):
     return (weather_info, temp, feels_like, temp_max, temp_min,
         cloud_status, humidity, wind_status, description, wind_speed,
         rain_status, wind_status_txt, rain)
+
 
 def is_night_time():
     hour = datetime.datetime.now().hour
@@ -290,10 +306,14 @@ def result():
         return redirect(url_for('weather_style'))
 
     weather_info, temp, feels_like, temp_max, temp_min, cloud_status, humidity, wind_status, description, wind_speed, rain_status, wind_status_txt, is_raining = parse_weather(weather_data, city)
-    hour = datetime.datetime.now().hour
+
+    tz_name = get_timezone_from_city(city)
+    tz = pytz.timezone(tz_name)
+    now = datetime.datetime.now(tz)
+    hour = now.hour
+
     #gpt prompt 보내기
     try:
-
         prompt = f"""You are a fashion coordinator who understands weather very well.
     {weather_info}
     I am a {gender} living in {city}, and I prefer a {style} style.
@@ -307,13 +327,12 @@ def result():
     - Shoes: ...
     - Accessories: ...
     - Additional Consideration: ...
-    
-    
+
     ⚠️ Important: For each clothing item (Outerwear, Top, Bottom, etc.), respond with a **short, keyword-style description** that can be used as a Pinterest search term. Avoid long sentences or explanations. For example:
     - Outerwear: trench coat
     - Top: cotton t-shirt
     - Shoes: white sneakers
-    
+
     Please only output one or two words per category. Your answer will be used as image search terms.
     Avoid adjectives like 'comfortable', 'breathable', etc. Just provide item names.
     """
@@ -333,7 +352,6 @@ def result():
         traceback.print_exc()
         gpt_reply = f"GPT ERROR: {str(e)}"
 
-
     outfit_dict = reply_from_gpt(gpt_reply)
 
     emoji_map = {
@@ -342,35 +360,31 @@ def result():
         "Bottom": "👖",
         "Shoes": "👟",
         "Accessories": "👜",
-        "Additional Consideration": "💡"}
+        "Additional Consideration": "💡"
+    }
 
     style_emoji_map = {
-    "casual": "👖",       
-    "minimal": "👕",     
-    "street": "👟",       
-    "chic": "🕶️",        
-    "girlish": "👗",     
-    "vintage": "🧥",      
-    "formal": "👔",      
-    "classic": "🧑‍💼",    
-    "sporty": "🎽"}
+        "casual": "👖",
+        "minimal": "👕",
+        "street": "👟",
+        "chic": "🕶️",
+        "girlish": "👗",
+        "vintage": "🧥",
+        "formal": "👔",
+        "classic": "🧑‍💼",
+        "sporty": "🎽"
+    }
     style_icon = style_emoji_map.get(style.lower(), "🧍")
-
 
     search_query = build_search_query(outfit_dict, gender, style)
     image_urls = get_pinterest_images(search_query, GOOGLE_API_KEY, CX)
-
     search_url = f"https://www.pinterest.com/search/pins/?q={search_query.replace(' ', '+')}"
 
-    # --- Calendar Data Integration ---
-    now = datetime.datetime.now()
-    datetime_str = now.strftime("%Y-%m-%d %H:%M")
-
-    current_date_formatted = now.strftime("%B %d, %Y") # e.g., May 29, 2025
-    current_month_name = now.strftime("%B") # e.g., May
+    current_date_formatted = now.strftime("%B %d, %Y")
+    current_month_name = now.strftime("%B")
     current_year = now.year
-    current_day = now.day # Day of the month (e.g., 29)
-    # --- End Calendar Data Integration ---
+    current_day = now.day
+    datetime_str = now.strftime("%Y-%m-%d %H:%M")
 
     if username and image_urls:
         with sqlite3.connect(DB_user) as conn:
@@ -411,7 +425,7 @@ def result():
                         is_night=is_night_time(),
                         is_raining=is_raining,
                         hour=hour
-                        ) 
+                        )
 
 
     
