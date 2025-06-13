@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Style-It | Log In</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/intropage.css') }}" />
+</head>
+
+<body>
+  <div class="weather-style-box">
+    <h2>We’ll recommend an outfit based on the weather and your style!</h2>
+    <p>Please select your <strong>location</strong> and <strong>style</strong> below<br>
+    We’ll show you outfit suggestions based on live weather and your selected preferences.</p>
+
+    <form action="{{ url_for('weather_style') }}" class="style-form">
+
+      <!-- 제출 버튼 -->
+      <button type="submit" class="btn"> Style-It! </button>
+    </form>
+  </div>
+</body>
