@@ -1,15 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Feedback List</title>
-    </head>
-    <body>
-    <h2>📋 피드백 모음</h2>
-    <ul>
-        {% for name, content, created_at in feedbacks %}
-        <li><strong>{{ name }}</strong> ({{ created_at }}):<br> {{ content }}</li><br>
-        {% endfor %}
-    </ul>
-    <a href="{{ url_for('index') }}">🏠 메인으로 돌아가기</a>
+    <meta charset="UTF-8" />
+    <title>💬 Feedback List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>📝 피드백 목록</h2>
+        <table>
+            <thead>
+                <tr>
+                <th>작성자</th>
+                <th>내용</th>
+                <th>작성일</th>
+                </tr>
+            </thead>
+        <tbody>
+            {% for name, content, created_at in feedbacks %}
+            <tr>
+                <td>{{ name }}</td>
+                <td>{{ content }}</td>
+                <td>{{ created_at[:16] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+        <a href="{{ url_for('index') }}" class="back-btn">🏠 메인으로 돌아가기</a>
+
+    </div>
 </body>
 </html>
