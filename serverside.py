@@ -213,6 +213,10 @@ def signup():
 
     return render_template('signup.html')
 
+@app.route('/intropage', methods=["GET"])
+def intropage():
+    return render_template('intropage.html')
+
 @app.route('/login', methods = ["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -227,7 +231,7 @@ def login():
 
             if user and user[0] == password:
                 session['username'] = username
-                return redirect(url_for('weather_style'))
+                return redirect(url_for('intropage'))
             else:
                 flash("Please check your username of password again.")
                 return redirect(url_for('login'))
