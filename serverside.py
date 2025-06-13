@@ -289,9 +289,6 @@ def mypage():
         history_data = history_data,
     )
 
-@app.route('/Style-It', methods=["GET"])
-def weather_style():
-    return render_template("weather_style.html")
 
 
 @app.route('/result', methods=["GET","POST"])
@@ -470,16 +467,17 @@ def logout():
     return redirect(url_for('index'))
 
 
+
+@app.route('/Style-It', methods=["GET"])
+def weather_style():
+    df = pd.read_csv('cities.csv', header=None)  
+    df.columns = ['City'] 
+    city_list = sorted(df['City'].dropna().unique())
+    return render_template('weather_style.html', cities=city_list)
+
 if __name__ == "__main__":
     init_db()
     app.run(host='0.0.0.0', port=5050, debug=True)
 
 
 app = Flask(__name__)
-
-@app.route('/Style-It', methods=["GET"])
-def weather_style():
-    df = pd.read_csv('cities.csv')  # Ensure this file is in the same folder as this .py file
-    city_list = sorted(df['City'].dropna().unique())
-    return render_template('weather_style.html', cities=city_list)
-
