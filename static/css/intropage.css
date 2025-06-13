@@ -1,45 +1,95 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-
+/* Body background and layout */
 body {
-    background: linear-gradient(-45deg, #a1c4fd, #c2e9fb, #fbc2eb, #a6c1ee);
-    background-size: 400% 400%;
-    animation: gradientBG 18s ease infinite;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
+  background: linear-gradient(-45deg, #a1c4fd, #c2e9fb, #fbc2eb, #a6c1ee);
+  background-size: 400% 400%;
+  animation: gradientBG 18s ease infinite;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Container for both boxes */
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* ensures mobile responsiveness */
+  gap: 40px;
+  padding: 40px;
+  max-width: 1200px;
+}
+
+/* Shared box styling */
+.weather-style-box {
+  background: #fff;
+  padding: 56px 48px;
+  border-radius: 24px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Heading styles inside boxes */
+.weather-style-box h2 {
+  margin: 0 0 18px;
+  font-size: 30px;
+  font-weight: 600;
+  color: #222;
+  text-align: center;
+}
+
+/* Paragraph styles inside boxes */
+.weather-style-box p {
+  margin: 0 0 32px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #555;
+  text-align: center;
+}
+
+/* Submit button */
+.btn {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s ease;
+}
+
+.btn:hover {
+  background: #333;
+  transform: translateY(-2px);
+}
+
+/* Optional animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-
-.weather-style-box{
-  background:#fff;
-  padding:56px 48px;
-  border-radius:24px;
-  box-shadow:0 12px 30px rgba(0,0,0,.15);
-  width:100%; max-width:520px;
-  animation:fadeIn .6s ease-in-out;
-  position:relative; overflow:hidden;
-  margin-left: auto;
-  margin-right: 40px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.weather-style-box h2{
-  margin:0 0 18px;
-  font-size:30px; font-weight:600; color:#222; text-align:center;
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
-
-.weather-style-box p{
-  margin:0 0 32px;
-  font-size:15px; line-height:1.55; color:#555; text-align:center;
-}
-
-.btn{
-  display:block; width:100%;
-  margin-top:10px; padding:14px;
-  background:#000; color:#fff; border:none;
-  border-radius:8px; font-size:16px; font-weight:500;
-  cursor:pointer; transition:background-color .3s, transform .2s ease;
-}
-.btn:hover{background:#333; transform:translateY(-2px);}
