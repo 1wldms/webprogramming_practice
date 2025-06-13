@@ -45,30 +45,5 @@
   <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
 
 
-<!-- interactive gradient follow-mouse -->
-<script>
-  document.addEventListener('mousemove', e => {
-  const x = e.clientX / window.innerWidth  * 100;
-  const y = e.clientY / window.innerHeight * 100;
-  document.documentElement.style.setProperty('--x', `${x}%`);
-  document.documentElement.style.setProperty('--y', `${y}%`);
-});
-
-const card = document.querySelector('.signup-box');
-
-card.addEventListener('mousemove', e => {
-  const r = card.getBoundingClientRect();
-  const bx = (e.clientX - r.left) / r.width  * 100;
-  const by = (e.clientY - r.top ) / r.height * 100;
-  card.style.setProperty('--bx', `${bx}%`);
-  card.style.setProperty('--by', `${by}%`);
-});
-
-card.addEventListener('mouseleave', () => {
-  card.style.setProperty('--bx', '50%');
-  card.style.setProperty('--by', '50%');
-});
-</script>
-
 </body>
 </html>
