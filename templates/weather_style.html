@@ -4,7 +4,7 @@
     <title> Style-It | Weather and Style! </title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/weather.css') }}">
   <!-- Select2 Styles -->
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -19,24 +19,9 @@
         <label for="city"> <strong> Select a city:</strong> </label>
         <select id="city" name="city" required>
           <option value="" disabled selected>-- Choose a city --</option>
-          <option value="Seoul">Seoul</option>
-          <option value="Tokyo">Tokyo</option>
-          <option value="Shanghai">Shanghai</option>
-          <option value="Manila">Manila</option>
-          <option value="Los Angeles">Los Angeles</option>
-          <option value="Bangkok">Bangkok</option>
-          <option value="New York">New York</option>
-          <option value="London">London</option>
-          <option value="Sydney">Sydney</option>
-          <option value="Vancouver">Vancouver</option>
-          <option value="Paris">Paris</option>
-          <option value="Berlin">Berlin</option>
-          <option value="Dubai">Dubai</option>
-          <option value="Singapore">Singapore</option>
-          <option value="Brasilia">Brazilia</option>
-          <option value="Cairo">Cairo</option>
-          <option value="Sāo Paulo">Sāo Paulo</option>
-          <option value="New Delhi">New Delhi</option>
+          {% for city in cities %}
+            <option value="{{ city }}">{{ city }}</option>
+          {% endfor %}
         </select>
       </div>
 
@@ -66,17 +51,22 @@
   </div>
  
   <!-- jQuery & Select2 JS -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-<script>
-  $(document).ready(function() {
-    $('#city').select2({
-      placeholder: "-- Choose a city --",
-      allowClear: true
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  
+  <script>
+    $(document).ready(function () {
+      $('#city').select2({
+        placeholder: "-- Choose a city --",
+        matcher: function(params, data) {
+          if ($.trim(params.term) === '') return data;
+          if (typeof data.text === 'undefined') return null;
+          if (data.text.toLowerCase().includes(params.term.toLowerCase())) return data;
+          return null;
+        }
+      });
     });
-  });
-</script>
+  </script>
 
 
 </body>
