@@ -14,92 +14,141 @@ body {
 }
 
 /* ---------- white card ---------- */
-.weather-style-box{
-  background:#fff;
-  padding:56px 48px;
-  border-radius:24px;
-  box-shadow:0 12px 30px rgba(0,0,0,.15);
-  width:100%; max-width:520px;
-  animation:fadeIn .6s ease-in-out;
-  position:relative; overflow:hidden;
+.weather-style-box {
+  background: #fff;
+  padding: 56px 48px;
+  border-radius: 24px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .15);
+  width: 100%;
+  max-width: 520px;
+  animation: fadeIn .6s ease-in-out;
+  position: relative;
+  overflow: hidden;
 }
 
-.weather-style-box h2{
-  margin:0 0 18px;
-  font-size:30px; font-weight:600; color:#222; text-align:center;
+.weather-style-box h2 {
+  margin: 0 0 18px;
+  font-size: 30px;
+  font-weight: 600;
+  color: #222;
+  text-align: center;
 }
 
-.weather-style-box p{
-  margin:0 0 32px;
-  font-size:15px; line-height:1.55; color:#555; text-align:center;
+.weather-style-box p {
+  margin: 0 0 32px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #555;
+  text-align: center;
 }
 
 /* form layout */
-.style-form .form-group{margin-bottom:26px;}
-.style-form label{font-size:15px; font-weight:500; color:#444;}
+.style-form .form-group {
+  margin-bottom: 26px;
+}
+.style-form label {
+  font-size: 15px;
+  font-weight: 500;
+  color: #444;
+}
 .style-form select,
-.style-form input[type="radio"]{font-family:'Poppins',sans-serif;}
+.style-form input[type="radio"] {
+  font-family: 'Poppins', sans-serif;
+}
 
 .style-form {
-    width: 100%;
-    max-width: 100%;
-  }  
+  width: 100%;
+  max-width: 100%;
+}
 
 .form-group#city-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 #city-group label {
-  margin-bottom: 8px; /* or 10px for a slightly larger gap */
-  }
+  margin-bottom: 8px;
+  font-size: 16px; /* increase font size */
+  font-weight: 600; /* make it bold */
+  color: #222;
+}
 
 #city-group {
-    margin-bottom: 24px; /* optional: space below the whole city selector */
-  }
+  margin-bottom: 24px;
+}
 
-select{
-  width:100%; max-width:260px;
-  padding:10px 12px;
-  border:1px solid #ccc; border-radius:8px;
-  font-size:15px; background:#fff;
+select {
+  width: 100%;
+  max-width: 260px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  background: #fff;
+}
+
+/* radio list heading style (new) */
+.style-label {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;       /* increased from 17px */
+  font-weight: 700;      /* bolder */
+  margin-bottom: 14px;
+  color: #222;
 }
 
 /* radio list spacing */
-.form-group input[type="radio"]{margin-right:6px;}
-.form-group label + br{line-height:10px;} /* tighten lines */
-
-/* button */
-.btn{
-  display:block; width:100%;
-  margin-top:10px; padding:14px;
-  background:#000; color:#fff; border:none;
-  border-radius:8px; font-size:16px; font-weight:500;
-  cursor:pointer; transition:background-color .3s, transform .2s ease;
+.form-group input[type="radio"] {
+  margin-right: 6px;
 }
-.btn:hover{background:#333; transform:translateY(-2px);}
-
-/* fade animation */
-@keyframes fadeIn{from{opacity:0;transform:translateY(12px);} to{opacity:1;transform:translateY(0);} }
+.form-group label + br {
+  line-height: 10px;
+}
 
 /* Make radio buttons horizontal */
 .horizontal-radio {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: center;
-    margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.horizontal-radio label {
+  white-space: nowrap;
+  font-size: 14px;
+  color: #444;
+}
+
+/* button */
+.btn {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 14px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color .3s, transform .2s ease;
+}
+.btn:hover {
+  background: #333;
+  transform: translateY(-2px);
+}
+
+/* fade animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
   }
-  .horizontal-radio label {
-    white-space: nowrap;
-    font-size: 14px;
-    color: #444;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  /* Adjust button spacing */
-  .btn {
-    margin-top: 12px;
-    width: 100%;
-  }
-  
+}
