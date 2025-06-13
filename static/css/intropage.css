@@ -22,7 +22,8 @@ body {
   flex-wrap: wrap; /* ensures mobile responsiveness */
   gap: 40px;
   padding: 40px;
-  max-width: 1200px;
+  overflow-x: auto;
+  flex-wrap: nowrap;
 }
 
 /* Shared box styling */
@@ -46,13 +47,21 @@ body {
   text-align: center;
 }
 
+.weather-style-box h3 {
+  margin: 16px 0 12px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #111;
+  text-align: left;
+}
+
 /* Paragraph styles inside boxes */
 .weather-style-box p {
-  margin: 0 0 32px;
+  margin: 0 0 24px;
   font-size: 15px;
-  line-height: 1.55;
-  color: #555;
-  text-align: center;
+  line-height: 1.8;     /* increased for easier reading */
+  color: #444;
+  text-align: left;     /* switch from center to left */
 }
 
 /* Submit button */
@@ -74,6 +83,19 @@ body {
 .btn:hover {
   background: #333;
   transform: translateY(-2px);
+}
+
+.benefits-list {
+  text-align: center;
+  margin: 16px 0;
+  padding-left: 0;
+  list-style: none;
+  font-size: 14px;
+  color: #444;
+}
+
+.benefits-list li {
+  margin-bottom: 8px;
 }
 
 /* Optional animation keyframes */

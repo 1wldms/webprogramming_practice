@@ -11,18 +11,36 @@
   <div class="container">
     
     <!-- Left white box -->
-    <div class="weather-style-box">
-      <h2>Welcome to Style-It!</h2>
-      <p>Pick your style, check the weather,<br>
-         and let us do the rest ✨</p>
-    </div>
+<div class="weather-style-box">
+  <h2>What is Style-It?</h2>
+  <p>
+    <strong>Style-It</strong> is a web application that recommends outfit combinations based on the current weather.<br>
+    We aim to help you choose suitable clothing for unfamiliar climates or seasonal conditions!
+  </p>
+
+  <h3>Motivation</h3>
+  <p>
+    When traveling to or moving to a new region, people often don’t know how to dress appropriately for the local weather.
+    This website aims to reduce the time and stress spent worrying about what to wear by providing helpful, weather-based outfit suggestions.
+  </p>
+  <p>
+    All three of us have lived abroad and never experienced the full four seasons of Korea.
+    We’ve personally struggled with choosing the right clothes for unfamiliar weather conditions.
+  </p>
+  <p>
+    Even with basic weather apps showing temperature and humidity, it was difficult to tell how cold or hot it would actually feel.
+    That’s why we created Style-It — to help people like us get smart, sensible outfit suggestions every day.
+  </p>
+</div>
 
     <!-- Right white box -->
     <div class="weather-style-box">
-      <h2>We’ll recommend an outfit based on the weather and your style!</h2>
-      <p>Please select your <strong>location</strong> and <strong>style</strong> below<br>
-      We’ll show you outfit suggestions based on live weather and your selected preferences.</p>
-
+      <h2>Click below to get started!</h2>
+      <ul class="benefits-list">
+        <p>✔️ Personalized outfit suggestions<br>
+          🌦️ Based on real-time weather<br>
+          🎯 Tailored to your style preferences</p>
+      </ul>
       <form action="{{ url_for('weather_style') }}" class="style-form">
         <button type="submit" class="btn">Style-It!</button>
       </form>

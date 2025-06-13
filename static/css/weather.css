@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-/* ---------- global gradient that follows the mouse ---------- */
+/* Body background and layout */
 body {
   background: linear-gradient(-45deg, #a1c4fd, #c2e9fb, #fbc2eb, #a6c1ee);
   background-size: 400% 400%;
