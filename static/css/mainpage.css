@@ -1,18 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-:root {
-    --x: 50%;
-    --y: 50%;
-    --bx: 50%;
-    --by: 50%;
-}
-
 body {
-    background: radial-gradient(circle at var(--x) var(--y),
-                                #f5f7fa 0%, #474747 100%);
-                                display:flex; align-items:center; justify-content:center;
-                                height:100vh; margin:0; font-family:'Poppins',sans-serif;
-}
+    background: linear-gradient(-45deg, #a1c4fd, #c2e9fb, #fbc2eb, #a6c1ee);
+    background-size: 400% 400%;
+    animation: gradientBG 18s ease infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+  }
 
 /* Login box styling */
 .login-box {
