@@ -12,9 +12,20 @@ from geopy.geocoders import Nominatim
 from timezonefinder import TimezoneFinder
 import pandas as pd
 import datetime as dt
+import random
+from flask import Flask, render_template, request
+
+def spaced_positions(count, min_gap=3):
+    positions = []
+    while len(positions) < count:
+        candidate = random.randint(5, 95)
+        if all(abs(candidate - p) >= min_gap for p in positions):
+            positions.append(candidate)
+    return positions
 
 app = Flask(__name__)
 app.secret_key = "wekfjl`klkAWldI109nAKnooionrg923jnn"
+app.jinja_env.globals.update(spaced_positions=spaced_positions)
 
 load_dotenv()
 
@@ -416,8 +427,8 @@ def result():
                         username, datetime_str, style, search_query, image_urls[0], city, 
                         temp, feels_like, rain_status, wind_status_txt
                         ))
-
-    return render_template("result.html",
+    positions = sorted(random.sample(range(5, 95), 30))
+    return render_template("result.html",positions=positions,
                         city=city,
                         style=style,
                         style_icon=style_icon,

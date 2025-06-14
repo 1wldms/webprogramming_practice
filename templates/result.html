@@ -18,113 +18,116 @@
       </div>
     </header>
 
-    <main>
-      <div class="info-calendar-container">
-        <div class="info-box card">
-          <h2>Information</h2>
-          <hr>
-          <p><strong>Location:</strong> {{ city }}</p>
-          <p><strong>Date:</strong> {{ current_date }}</p>
-          <p><strong>Style:</strong> {{ style }}</p>
-        </div>
+  <main>
+  <!-- Info and Calendar side-by-side, no outer .card -->
+  <div class="info-calendar-container">
+    <div class="info-box card">
+      <h2>Information</h2>
+      <hr>
+      <p><strong>Location:</strong> {{ city }}</p>
+      <p><strong>Date:</strong> {{ current_date }}</p>
+      <p><strong>Style:</strong> {{ style }}</p>
+    </div>
 
-        <div class="calendar-box card">
-          <div id="mini-calendar"></div>
-        </div>
-      </div>
-      <div class="card weather-card-wrapper weather-widget-card">
-        <div class="weather-box">
-          <h2><i class="fas fa-cloud"></i> Current Weather</h2>
-          <p><i class="fas fa-thermometer-half"></i> Temperature: {{ temp }}°C (Feels Like: {{ feels_like }}°C)</p>
-          <p><i class="fas fa-temperature-high"></i> Max: {{ temp_max }}°C / <i class="fas fa-temperature-low"></i> Min: {{ temp_min }}°C</p>
-          <p><i class="fas fa-cloud"></i> Cloud: {{ cloud_status }}</p>
-          <p><i class="fas fa-wind"></i> Wind: {{ wind_status }}</p>
-          <p><i class="fas fa-tint"></i> Humidity: {{ humidity }}%</p>
-          <p><i class="fas fa-sun"></i> Condition: {{ description }}</p>
-        </div>
+    <div class="calendar-box card">
+      <div id="mini-calendar"></div>
+    </div>
+  </div>
 
-        <div class="animated-widget-wrapper">
-          <div class="animated-widget">
-            <div class="frame">
-              {% if is_night %}
-                <div class="moon">
-                  <div class="moon-crater1"></div>
-                  <div class="moon-crater2"></div>
-                </div>
-              {% else %}
-                <div class="sun"></div>
-              {% endif %}
+  <!-- Weather card -->
+  <div class="card weather-card-wrapper weather-widget-card">
+    <div class="weather-box">
+      <h2><i class="fas fa-cloud"></i> Current Weather</h2>
+      <p><i class="fas fa-thermometer-half"></i> Temperature: {{ temp }}°C (Feels Like: {{ feels_like }}°C)</p>
+      <p><i class="fas fa-temperature-high"></i> Max: {{ temp_max }}°C / <i class="fas fa-temperature-low"></i> Min: {{ temp_min }}°C</p>
+      <p><i class="fas fa-cloud"></i> Cloud: {{ cloud_status }}</p>
+      <p><i class="fas fa-wind"></i> Wind: {{ wind_status }}</p>
+      <p><i class="fas fa-tint"></i> Humidity: {{ humidity }}%</p>
+      <p><i class="fas fa-sun"></i> Condition: {{ description }}</p>
+    </div>
 
-              <div class="hill-bg-1"></div>
-              <div class="hill-bg-2"></div>
-              <div class="hill-fg-1"></div>
-              <div class="hill-fg-2"></div>
-              <div class="hill-fg-3"></div>
-
-              <div class="front">
-                <div>
-                  <div class="temperature">{{ temp|round(0) }}°</div>
-                  <div class="icons">
-                    <i class="fas fa-wind"></i><br/>
-                    <i class="fas fa-tint"></i>
-                  </div>
-                  <div>
-                    <div class="info">{{ wind_status.split('-')[0] }}<br>{{ humidity }}%</div>
-                    <table class="preview">
-                      <tbody>
-                        <tr><td>Max</td><td>{{ temp_max|round(0) }}°</td></tr>
-                        <tr><td>Min</td><td>{{ temp_min|round(0) }}°</td></tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="proverb">"Frogs croaking in the lagoon,<br/>Means rain will come real soon."</div>
-              </div>
-
-              {% if is_raining %}
-                {% for i in range(1, 11) %}
-                  <div class="drop-big-{{ i }}"></div>
-                  <div class="drop-medium-{{ i }}"></div>
-                  <div class="drop-small-{{ i }}"></div>
-                {% endfor %}
-              {% endif %}
+    <div class="animated-widget-wrapper">
+      <div class="animated-widget">
+        <div class="frame">
+          {% if is_night %}
+            <div class="moon">
+              <div class="moon-crater1"></div>
+              <div class="moon-crater2"></div>
             </div>
+          {% else %}
+            <div class="sun"></div>
+          {% endif %}
+
+          <div class="hill-bg-1"></div>
+          <div class="hill-bg-2"></div>
+          <div class="hill-fg-1"></div>
+          <div class="hill-fg-2"></div>
+          <div class="hill-fg-3"></div>
+
+          <div class="front">
+            <div>
+              <div class="temperature">{{ temp|round(0) }}°</div>
+              <div class="icons">
+                <i class="fas fa-wind"></i><br/>
+                <i class="fas fa-tint"></i>
+              </div>
+              <div>
+                <div class="info">{{ wind_status.split('-')[0] }}<br>{{ humidity }}%</div>
+                <table class="preview">
+                  <tbody>
+                    <tr><td>Max</td><td>{{ temp_max|round(0) }}°</td></tr>
+                    <tr><td>Min</td><td>{{ temp_min|round(0) }}°</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="proverb">"Frogs croaking in the lagoon,<br/>Means rain will come real soon."</div>
           </div>
+        {% if is_raining %}
+          {% for pos in positions %}
+             <div class="drop"
+                style="left: {{ pos }}%; animation-delay: {{ (range(0, 100)|random / 100)|round(2) }}s;">
+            </div>
+          {% endfor %}
+        {% endif %}
         </div>
       </div>
+    </div>
+  </div>
 
-      <div class="card outfit-card">
-        <h2><i class="fas fa-sparkles"></i> Outfit Recommendation</h2>
-        {% for key, value in outfit.items() %}
-          <p><strong>{{ key }}:</strong> {{ value }}</p>
+  <!-- Outfit card -->
+  <div class="card outfit-card">
+    <h2><i class="fas fa-sparkles"></i> Outfit Recommendation</h2>
+    {% for key, value in outfit.items() %}
+      <p><strong>{{ key }}:</strong> {{ value }}</p>
+    {% endfor %}
+  </div>
+
+  <!-- Image suggestion card -->
+  <div class="card image-suggestions-card">
+    <h2><i class="fab fa-pinterest"></i> Outfit Image Suggestions</h2>
+    {% if image_urls %}
+      <p>We searched Pinterest using the keyword: "{{ search_query }}"</p>
+      <div class="pinterest-images">
+        {% for img_url in image_urls %}
+          <img src="{{ img_url }}" alt="Outfit suggestion" class="pinterest-img">
         {% endfor %}
       </div>
-
-      <div class="card image-suggestions-card">
-        <h2><i class="fab fa-pinterest"></i> Outfit Image Suggestions</h2>
-        {% if image_urls %}
-          <p>We searched Pinterest using the keyword: "{{ search_query }}"</p>
-          <div class="pinterest-images">
-            {% for img_url in image_urls %}
-              <img src="{{ img_url }}" alt="Outfit suggestion" class="pinterest-img">
-            {% endfor %}
-          </div>
-        {% else %}
-          <p>We searched Pinterest using the keyword: "{{ search_query }}"</p>
-          <p>No images found for this style.</p>
-        {% endif %}
-        <h3>Looking for more in Pinterest?</h3>
-        <div class="button-group">
-          <a href="{{ search_url }}" target="_blank" class="dynamic-icon-button pinterest">
-            <i class="fab fa-pinterest"></i><span>Pinterest</span>
-          </a>
-          <a href="{{ url_for('weather_style') }}" class="dynamic-icon-button">
-            <i class="fas fa-arrow-left"></i><span>Back</span>
-          </a>
-        </div>
-      </div>
-    </main>
+    {% else %}
+      <p>We searched Pinterest using the keyword: "{{ search_query }}"</p>
+      <p>No images found for this style.</p>
+    {% endif %}
+    <h3>Looking for more in Pinterest?</h3>
+    <div class="button-group">
+      <a href="{{ search_url }}" target="_blank" class="dynamic-icon-button pinterest">
+        <i class="fab fa-pinterest"></i><span>Pinterest</span>
+      </a>
+      <a href="{{ url_for('weather_style') }}" class="dynamic-icon-button">
+        <i class="fas fa-arrow-left"></i><span>Back</span>
+      </a>
+    </div>
   </div>
+</main>
 
   <button id="feedback-btn">💬 Feedback</button>
 
@@ -203,7 +206,7 @@
         }
 
         calendarGrid.appendChild(dayCell);
-  }
+}
 
       calendarElement.appendChild(calendarGrid);
     }
