@@ -7,11 +7,11 @@ import openai
 import traceback
 from dotenv import load_dotenv
 import re
-import datetime 
 import pytz
 from geopy.geocoders import Nominatim
 from timezonefinder import TimezoneFinder
 import pandas as pd
+import datetime as dt
 
 app = Flask(__name__)
 app.secret_key = "wekfjl`klkAWldI109nAKnooionrg923jnn"
@@ -150,8 +150,11 @@ def parse_weather(weather_data, city):
         rain_status, wind_status_txt, rain)
 
 
-def is_night_time(hour):
-    return hour < 6 or hour >= 18
+def is_night_in(city_timezone):
+    tz = pytz.timezone(city_timezone)
+    local_time = dt.datetime.now(tz)  # ✅ using dt.datetime
+    hour = local_time.hour
+    return hour < 6 or hour >= 18, hour
 
 
 def get_pinterest_images(query, google_api_key, cx_id):
@@ -317,9 +320,14 @@ def result():
     weather_info, temp, feels_like, temp_max, temp_min, cloud_status, humidity, wind_status, description, wind_speed, rain_status, wind_status_txt, is_raining = parse_weather(weather_data, city)
 
     tz_name = get_timezone_from_city(city)
+    print(f"DEBUG: Timezone from city '{city}' = {tz_name}")
+    print(f"DEBUG: Local time = {dt.datetime.now(pytz.timezone(tz_name))}")
+    is_night, hour = is_night_in(tz_name)  # <-- this line was missing
     tz = pytz.timezone(tz_name)
-    now = datetime.datetime.now(tz)
+
+    now = dt.datetime.now(tz)
     hour = now.hour
+
 
     #gpt prompt 보내기
     try:
@@ -431,7 +439,7 @@ def result():
                         current_month_name=current_month_name,
                         current_year=current_year,
                         current_day=current_day,
-                        is_night=(hour < 6 or hour >= 18),
+                        is_night=is_night,
                         is_raining=is_raining,
                         hour=hour
                         )
