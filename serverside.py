@@ -406,7 +406,7 @@ def result():
                         username, datetime_str, style, search_query, image_urls[0], city, 
                         temp, feels_like, rain_status, wind_status_txt
                         ))
-    positions = sorted(random.sample(range(5, 95), 30))
+    positions = spaced_positions(30)
     return render_template("result.html",positions=positions,
                         city=city,
                         style=style,

@@ -86,7 +86,7 @@
         {% if is_raining %}
           {% for pos in positions %}
              <div class="drop"
-                style="left: {{ pos }}%; animation-delay: {{ (range(0, 100)|random / 100)|round(2) }}s;">
+                style="left: {{ pos }}%; animation-delay: {{ (loop.index0 * 0.15)|round(2) }}s;">
             </div>
           {% endfor %}
         {% endif %}

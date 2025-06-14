@@ -461,10 +461,11 @@ body[data-night="true"] .animated-widget .frame {
   position: absolute;
   width: 3px;
   height: 10px;
-  background: rgba(255, 255, 255, 0.6);
-  top: -20px;
-  animation: rainDrop 1.5s infinite linear;
+  background: rgba(255, 255, 255, 0.7);
   border-radius: 2px;
+  top: -20px;
+  animation: rainDrop 1.2s linear infinite;
+  z-index: 10;
 }
 
 /* BIG drops */
@@ -506,6 +507,10 @@ body[data-night="true"] .animated-widget .frame {
 @keyframes rainDrop {
   0% {
     transform: translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
   }
   100% {
     transform: translateY(350px);
