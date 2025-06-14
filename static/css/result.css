@@ -19,7 +19,7 @@ body {
 
 .container {
   background: #fff;
-  border-radius: 12px;
+  border-radius: 32px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 25px;
   margin: 30px auto;
@@ -161,7 +161,7 @@ header h1 {
 }
 
 .current-day {
-  background: #a0a0a0;
+  background: #8f8e8e;
   color: #fff;
   font-weight: bold;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -173,7 +173,7 @@ header h1 {
 
 .card {
   background: #fff;
-  border-radius: 12px;
+  border-radius: 25px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   padding: 25px;
   margin-bottom: 30px;

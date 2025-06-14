@@ -436,6 +436,7 @@ def result():
                         image_urls=image_urls,
                         search_query=search_query,
                         current_date=current_date_formatted,
+                        current_month=now.month,
                         current_month_name=current_month_name,
                         current_year=current_year,
                         current_day=current_day,

@@ -32,7 +32,6 @@
           <div id="mini-calendar"></div>
         </div>
       </div>
-      <p>DEBUG: Is Night = {{ is_night }} | Hour = {{ hour }}</p>
       <div class="card weather-card-wrapper weather-widget-card">
         <div class="weather-box">
           <h2><i class="fas fa-cloud"></i> Current Weather</h2>
@@ -146,86 +145,94 @@
   </div>
 
   <script src="{{ url_for('static', filename='js/feedback.js') }}" defer></script>
+
+<!-- Inject server-side variables into JavaScript -->
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const today = new Date();
-      const currentMonth = today.getMonth();
-      const currentYear = today.getFullYear();
-      const currentDay = today.getDate();
+    const currentMonth = {{ current_month }};
+    const currentYear = {{ current_year }};
+    const currentDay = {{ current_day }};
+    const today = new Date();
+  </script>
 
-      function generateCalendar(month, year, currentDayHighlight) {
-        const calendarElement = document.getElementById('mini-calendar');
-        calendarElement.innerHTML = '';
+  <script src="{{ url_for('static', filename='js/mini_calendar.js') }}" defer></script>
 
-        const monthNames = ["January", "February", "March", "April", "May", "June",
-                            "July", "August", "September", "October", "November", "December"];
-        const dayNamesShort = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    function generateCalendar(month, year, currentDayHighlight) {
+      const calendarElement = document.getElementById('mini-calendar');
+      calendarElement.innerHTML = '';
 
-        const firstDayOfMonth = new Date(year, month, 1).getDay();
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const monthNames = ["January", "February", "March", "April", "May", "June",
+                          "July", "August", "September", "October", "November", "December"];
+      const dayNamesShort = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
-        const monthHeader = document.createElement('div');
-        monthHeader.classList.add('calendar-month-header');
-        monthHeader.textContent = `${monthNames[month]} ${year}`;
-        calendarElement.appendChild(monthHeader);
+      const firstDayOfMonth = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-        const daysOfWeekHeader = document.createElement('div');
-        daysOfWeekHeader.classList.add('calendar-days-of-week');
-        dayNamesShort.forEach(day => {
-          const span = document.createElement('span');
-          span.textContent = day;
-          daysOfWeekHeader.appendChild(span);
-        });
-        calendarElement.appendChild(daysOfWeekHeader);
+      const monthHeader = document.createElement('div');
+      monthHeader.classList.add('calendar-month-header');
+      monthHeader.textContent = `${monthNames[month]} ${year}`;
+      calendarElement.appendChild(monthHeader);
 
-        const calendarGrid = document.createElement('div');
-        calendarGrid.classList.add('calendar-grid');
+      const daysOfWeekHeader = document.createElement('div');
+      daysOfWeekHeader.classList.add('calendar-days-of-week');
+      dayNamesShort.forEach(day => {
+        const span = document.createElement('span');
+        span.textContent = day;
+        daysOfWeekHeader.appendChild(span);
+      });
+      calendarElement.appendChild(daysOfWeekHeader);
 
-        for (let i = 0; i < firstDayOfMonth; i++) {
-          const emptyCell = document.createElement('span');
-          emptyCell.classList.add('empty-cell');
-          calendarGrid.appendChild(emptyCell);
+      const calendarGrid = document.createElement('div');
+      calendarGrid.classList.add('calendar-grid');
+
+      for (let i = 0; i < firstDayOfMonth; i++) {
+        const emptyCell = document.createElement('span');
+        emptyCell.classList.add('empty-cell');
+        calendarGrid.appendChild(emptyCell);
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dayCell = document.createElement('span');
+        dayCell.textContent = day;
+        dayCell.classList.add('calendar-day');
+
+  // ✅ Use the passed-in currentDayHighlight instead of checking against today
+        if (day === currentDayHighlight) {
+          dayCell.classList.add('current-day');
         }
 
-        for (let day = 1; day <= daysInMonth; day++) {
-          const dayCell = document.createElement('span');
-          dayCell.textContent = day;
-          dayCell.classList.add('calendar-day');
-          if (year === today.getFullYear() && month === today.getMonth() && day === currentDayHighlight) {
-            dayCell.classList.add('current-day');
-          }
-          calendarGrid.appendChild(dayCell);
-        }
+        calendarGrid.appendChild(dayCell);
+  }
 
-        calendarElement.appendChild(calendarGrid);
-      }
+      calendarElement.appendChild(calendarGrid);
+    }
 
-      generateCalendar(currentMonth, currentYear, currentDay);
-    });
+    generateCalendar(currentMonth, currentYear, currentDay);
+  });
 
-    document.addEventListener('mousemove', e => {
-      const xPct = (e.clientX / window.innerWidth)  * 100;
-      const yPct = (e.clientY / window.innerHeight) * 100;
-      document.documentElement.style.setProperty('--x', `${xPct}%`);
-      document.documentElement.style.setProperty('--y', `${yPct}%`);
-    });
-  </script>
-  <script>
-    window.onload = function () {
-      const isNight = document.body.dataset.night === "true";
-      const frame = document.querySelector(".animated-widget .frame");
+  document.addEventListener('mousemove', e => {
+    const xPct = (e.clientX / window.innerWidth)  * 100;
+    const yPct = (e.clientY / window.innerHeight) * 100;
+    document.documentElement.style.setProperty('--x', `${xPct}%`);
+    document.documentElement.style.setProperty('--y', `${yPct}%`);
+  });
+</script>
 
-      if (!frame) {
-        console.error("Weather widget frame not found.");
-        return;
-      }
+<script>
+  window.onload = function () {
+    const isNight = document.body.dataset.night === "true";
+    const frame = document.querySelector(".animated-widget .frame");
 
-      if (isNight) {
-        frame.style.background = "linear-gradient(to top, #1e3c72, #2a5298)";
-      } else {
-        frame.style.background = "linear-gradient(to top, #d0eaff, #a0cfff)";
-      }
-    };
-  </script>
-</body>
-</html>
+    if (!frame) {
+      console.error("Weather widget frame not found.");
+      return;
+    }
+
+    if (isNight) {
+      frame.style.background = "linear-gradient(to top, #1e3c72, #2a5298)";
+    } else {
+      frame.style.background = "linear-gradient(to top, #d0eaff, #a0cfff)";
+    }
+  };
+</script>
