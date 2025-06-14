@@ -557,3 +557,51 @@ body[data-night="true"] .animated-widget .frame {
     transform: translateY(0);
   }
 }
+
+.dynamic-icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  color: white;
+  border: none;
+  text-decoration: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  font-size: 22px;
+  font-weight: 600;
+  overflow: hidden;
+  position: relative;
+  gap: 10px;
+}
+
+.dynamic-icon-button span {
+  display: none;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-size: 16px;
+}
+
+.dynamic-icon-button:hover {
+  width: auto;
+  padding: 0 20px;
+  border-radius: 50px;
+}
+
+.dynamic-icon-button:hover span {
+  display: inline;
+  opacity: 1;
+}
+
+.dynamic-icon-button.pinterest {
+  background: linear-gradient(to right, #e60023 0%, #bd081c 100%);
+  box-shadow: 0 4px 10px rgba(230, 0, 35, 0.3);
+}
+
+.dynamic-icon-button.pinterest:hover {
+  box-shadow: 0 6px 12px rgba(230, 0, 35, 0.4);
+}
