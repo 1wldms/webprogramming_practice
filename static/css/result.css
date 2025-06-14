@@ -5,12 +5,16 @@ body {
   background: linear-gradient(-45deg, #a1c4fd, #c2e9fb, #fbc2eb, #a6c1ee);
   background-size: 400% 400%;
   animation: gradientBG 18s ease infinite;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
+
   font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;      /* ⬅️ Add this */
+  align-items: center;
+  justify-content: flex-start; /* ⬅️ Change this from center to flex-start */
+  min-height: 100vh;           /* ⬅️ For scrollable content if needed */
 }
 
 .container {
