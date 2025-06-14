@@ -24,10 +24,15 @@
     </div>
 
     <h2>Style History</h2>
+    <div class="search-history-date" style="margin: 20px 0;">
+      <label for="search-date"><strong>Search by Date:</strong></label>
+      <input type="date" id="search-date">
+      <button id="date-filter-btn">Search</button>
+    </div>
     <div id="history-box" class='history-box'>
       {% if history_data %}
           {% for date, style, query, img, city, weather_temp, weather_feels_like, rain_status, wind_status in history_data %}
-          <div class="history-card">
+          <div class="history-card" data-date="{{ date[:10] }}">
             <div class="history-left">
               <div class="text-block">
                 <p class="history-title">📅 {{ date }} | 📍 {{ city }} 🎨 {{ style }}</p>
@@ -65,21 +70,43 @@
   </div>
 
   <script>
-    function togglePW() {
-      const pw = document.getElementById("pw");
-      const iconButton = document.querySelector(".password-section button");
-      const isHidden = pw.type === "password";
+  // Toggle password visibility
+  function togglePW() {
+    const pw = document.getElementById("pw");
+    const iconButton = document.querySelector(".password-section button");
+    const isHidden = pw.type === "password";
 
-      pw.type = isHidden ? "text" : "password";
-      iconButton.innerHTML = isHidden ? "‍️" : "👁️";
-    }
+    pw.type = isHidden ? "text" : "password";
+    iconButton.innerHTML = isHidden ? "‍️" : "👁️";
+  }
 
-    document.addEventListener('mousemove', e => {
+  // Dynamic background gradient based on mouse position
+  document.addEventListener('mousemove', e => {
     const xPct = (e.clientX / window.innerWidth)  * 100;
     const yPct = (e.clientY / window.innerHeight) * 100;
     document.documentElement.style.setProperty('--x', `${xPct}%`);
     document.documentElement.style.setProperty('--y', `${yPct}%`);
-    });
-  </script>
+  });
+
+  // Filter history cards by date
+  document.addEventListener('DOMContentLoaded', function () {
+    const filterBtn = document.getElementById('date-filter-btn');
+    if (filterBtn) {
+      filterBtn.addEventListener('click', function () {
+        const selectedDate = document.getElementById('date-filter').value;
+        const cards = document.querySelectorAll('.history-card');
+
+        cards.forEach(card => {
+          const cardDate = card.getAttribute('data-date');
+          if (!selectedDate || cardDate === selectedDate) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    }
+  });
+</script>
 </body>
 </html>

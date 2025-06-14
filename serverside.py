@@ -427,7 +427,7 @@ def result():
                         current_month_name=current_month_name,
                         current_year=current_year,
                         current_day=current_day,
-                        is_night=is_night_time(hour),
+                        is_night=(hour < 6 or hour >= 18),
                         is_raining=is_raining,
                         hour=hour
                         )
