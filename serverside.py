@@ -371,27 +371,6 @@ def result():
 
     outfit_dict = reply_from_gpt(gpt_reply)
 
-    emoji_map = {
-        "Outerwear": "🧥",
-        "Top": "👕",
-        "Bottom": "👖",
-        "Shoes": "👟",
-        "Accessories": "👜",
-        "Additional Consideration": "💡"
-    }
-
-    style_emoji_map = {
-        "casual": "👖",
-        "minimal": "👕",
-        "street": "👟",
-        "chic": "🕶️",
-        "girlish": "👗",
-        "vintage": "🧥",
-        "formal": "👔",
-        "classic": "🧑‍💼",
-        "sporty": "🎽"
-    }
-    style_icon = style_emoji_map.get(style.lower(), "🧍")
 
     search_query = build_search_query(outfit_dict, gender, style)
     image_urls = get_pinterest_images(search_query, GOOGLE_API_KEY, CX)
@@ -431,7 +410,6 @@ def result():
                         description=description,
                         gpt_reply=gpt_reply,
                         outfit=outfit_dict,
-                        emoji=emoji_map,
                         search_url=search_url,
                         image_urls=image_urls,
                         search_query=search_query,
