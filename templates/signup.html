@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Style-It | Sign Up</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/feedback.css') }}">
+
 </head>
 
 <body>
@@ -41,8 +43,32 @@
       </form>
       <a href="{{ url_for('login') }}" class="back-link">Already have an account? Login</a>
   </div>
+  
+  <button id="feedback-btn">💬 Feedback</button>
 
+  <div id="feedback-modal" class="hidden">
+    <form id="feedback-form">
+      <h2 style="margin-bottom: 20px;">💌 Feedback</h2>
+  
+      <div class="form-group">
+        <label for="feedback-name">Your Name</label>
+        <input type="text" id="feedback-name" name="name" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="feedback-content">Your Feedback</label>
+        <textarea id="feedback-content" name="content" rows="4" required></textarea>
+      </div>
+  
+      <button type="submit" class="btn active">Submit</button>
+      <button type="button" class="btn" onclick="closeFeedback()">Close</button>
+    </form>
+  </div>
+
+  
   <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/feedback.js') }}" defer></script>
+
 
 
 </body>

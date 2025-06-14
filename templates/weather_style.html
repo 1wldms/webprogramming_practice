@@ -5,6 +5,8 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/weather.css') }}">
   <!-- Select2 Styles -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/feedback.css') }}">
+
 
 </head>
 <body>
@@ -27,7 +29,7 @@
 
       <!-- 스타일 선택 -->
       <div class="form-group horizontal-radio">
-        <label>Choose your style:</label><br>
+      <label class="style-label"><strong>Choose your style:</strong></label>
         <label><input type="radio" name="style" value="Casual" required> Casual </label>
         <label><input type="radio" name="style" value="Minimal"> Minimal </label>
         <label><input type="radio" name="style" value="Street"> Street </label>
@@ -39,17 +41,35 @@
         <label><input type="radio" name="style" value="Sporty"> Sporty </label>
         <label><input type="radio" name="style" value="Comfy"> Comfy </label>
         <label><input type="radio" name="style" value="Hypebeast"> Hypebeast </label>
-        <label><input type="radio" name="style" value="Tough"> Tough </label>
         <label><input type="radio" name="style" value="Indie"> Indie </label>
         <label><input type="radio" name="style" value="Edgy"> Edgy </label>
-        <label><input type="radio" name="style" value="Drippy"> Drippy </label>
       </div>
 
       <!-- 제출 버튼 -->
       <button type="submit" class="btn"> See Results! </button>
     </form>
   </div>
- 
+  <button id="feedback-btn">💬 Feedback</button>
+
+  <div id="feedback-modal" class="hidden">
+    <form id="feedback-form">
+      <h2 style="margin-bottom: 20px;">💌 Feedback</h2>
+  
+      <div class="form-group">
+        <label for="feedback-name">Your Name</label>
+        <input type="text" id="feedback-name" name="name" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="feedback-content">Your Feedback</label>
+        <textarea id="feedback-content" name="content" rows="4" required></textarea>
+      </div>
+  
+      <button type="submit" class="btn active">Submit</button>
+      <button type="button" class="btn" onclick="closeFeedback()">Close</button>
+    </form>
+  </div>
+
   <!-- jQuery & Select2 JS -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -67,6 +87,7 @@
       });
     });
   </script>
+  <script src="{{ url_for('static', filename='js/feedback.js') }}" defer></script>
 
 
 </body>

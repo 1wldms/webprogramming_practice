@@ -12,7 +12,6 @@ import pytz
 from geopy.geocoders import Nominatim
 from timezonefinder import TimezoneFinder
 import pandas as pd
-from flask import render_template
 
 app = Flask(__name__)
 app.secret_key = "wekfjl`klkAWldI109nAKnooionrg923jnn"
@@ -36,7 +35,8 @@ def init_db():
                 CREATE TABLE users(
                     username TEXT PRIMARY KEY,
                     password TEXT NOT NULL,
-                    gender TEXT NOT NULL
+                    gender TEXT NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
                 ''')
 
@@ -288,9 +288,13 @@ def mypage():
         history_data = history_data,
     )
 
+
 @app.route('/Style-It', methods=["GET"])
 def weather_style():
-    return render_template("weather_style.html")
+    df = pd.read_csv('cities.csv', header=None)  
+    df.columns = ['City'] 
+    city_list = sorted(df['City'].dropna().unique())
+    return render_template('weather_style.html', cities=city_list)
 
 
 @app.route('/result', methods=["GET","POST"])
@@ -449,6 +453,24 @@ def submit_feedback():
 
     return f"{name}님, 소중한 의견 감사합니다!"
 
+@app.route('/view-users')
+def view_users():
+    secret = request.args.get("key")
+    if secret != "styleit_admin_2025":  
+        return "접근 불가: 인증 키가 필요합니다", 403
+
+    try:
+        with sqlite3.connect(DB_user) as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT username, gender, created_at FROM users ORDER BY created_at DESC;")
+            users = cursor.fetchall()
+            cursor.close()
+
+        return render_template("view_users.html", users=users)
+    except Exception as e:
+        return f"오류 발생: {str(e)}"
+
+
 
 @app.route('/view-feedback')
 def view_feedback():
@@ -468,17 +490,9 @@ def logout():
     session.clear()
     return redirect(url_for('index'))
 
-
 if __name__ == "__main__":
     init_db()
     app.run(host='0.0.0.0', port=5050, debug=True)
 
 
 app = Flask(__name__)
-
-@app.route('/Style-It', methods=["GET"])
-def weather_style():
-    df = pd.read_csv('cities.csv')  # Ensure this file is in the same folder as this .py file
-    city_list = sorted(df['City'].dropna().unique())
-    return render_template('weather_style.html', cities=city_list)
-

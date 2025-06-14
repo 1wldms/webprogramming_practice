@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>👤 User List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>📋 가입한 유저 목록</h2>
+        <table>
+            <thead>
+                <tr>
+                <th>가입일</th>
+                <th>아이디</th>
+                <th>성별</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for username, gender, created_at in users %}
+                <tr>
+                    <td>{{ created_at[:16] }}</td>
+                    <td>{{ username }}</td>
+                    <td>{{ gender }}</td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <a href="{{ url_for('index') }}" class="back-btn">🏠 메인으로 돌아가기</a>
+    </div>
+</body>
+</html>

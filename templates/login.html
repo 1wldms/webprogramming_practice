@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Style-It | Log In</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/feedback.css') }}">
 </head>
 
 <body>
@@ -37,7 +38,29 @@
     <a href="{{ url_for('signup') }}" class="back-link">Don't have an account? Sign up</a>
   </div>
 
-  <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+  <button id="feedback-btn">💬 Feedback</button>
 
+  <div id="feedback-modal" class="hidden">
+    <form id="feedback-form">
+      <h2 style="margin-bottom: 20px;">💌 Feedback</h2>
+  
+      <div class="form-group">
+        <label for="feedback-name">Your Name</label>
+        <input type="text" id="feedback-name" name="name" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="feedback-content">Your Feedback</label>
+        <textarea id="feedback-content" name="content" rows="4" required></textarea>
+      </div>
+  
+      <button type="submit" class="btn active">Submit</button>
+      <button type="button" class="btn" onclick="closeFeedback()">Close</button>
+    </form>
+  </div>
+
+  
+  <script src="{{ url_for('static', filename='js/feedback.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 </body>
 </html>

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Style-It | Intro Page</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/intropage.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/feedback.css') }}">
 </head>
 
 <body>
@@ -18,20 +19,20 @@
     We aim to help you choose suitable clothing for unfamiliar climates or seasonal conditions!
   </p>
 
-  <h3>Motivation</h3>
-  <p>
-    When traveling to or moving to a new region, people often don’t know how to dress appropriately for the local weather.
-    This website aims to reduce the time and stress spent worrying about what to wear by providing helpful, weather-based outfit suggestions.
-  </p>
-  <p>
-    All three of us have lived abroad and never experienced the full four seasons of Korea.
-    We’ve personally struggled with choosing the right clothes for unfamiliar weather conditions.
-  </p>
-  <p>
-    Even with basic weather apps showing temperature and humidity, it was difficult to tell how cold or hot it would actually feel.
-    That’s why we created Style-It — to help people like us get smart, sensible outfit suggestions every day.
-  </p>
-</div>
+    <h3>Motivation</h3>
+    <p>
+      When traveling to or moving to a new region, people often don’t know how to dress appropriately for the local weather.
+      This website aims to reduce the time and stress spent worrying about what to wear by providing helpful, weather-based outfit suggestions.
+    </p>
+    <p>
+      All three of us have lived abroad and never experienced the full four seasons of Korea.
+      We’ve personally struggled with choosing the right clothes for unfamiliar weather conditions.
+    </p>
+    <p>
+      Even with basic weather apps showing temperature and humidity, it was difficult to tell how cold or hot it would actually feel.
+      That’s why we created Style-It — to help people like us get smart, sensible outfit suggestions every day.
+    </p>
+  </div>
 
     <!-- Right white box -->
     <div class="weather-style-box">
@@ -50,5 +51,26 @@
     </div>
 
   </div>
+
+
+  <button id="feedback-btn" onclick="openModal()">💬 Feedback</button>
+
+  <div id="feedback-modal" class="hidden">
+    <form id="feedback-form">
+      <h2 style="margin-bottom: 20px;">💌 Feedback</h2>
+      <div class="form-group">
+        <label for="feedback-name">Your Name</label>
+        <input type="text" id="feedback-name" name="name" required />
+      </div>
+      <div class="form-group">
+        <label for="feedback-content">Your Feedback</label>
+        <textarea id="feedback-content" name="content" rows="4" required></textarea>
+      </div>
+      <button type="submit" class="btn active">Submit</button>
+      <button type="button" class="btn" onclick="closeFeedback()">Close</button>
+    </form>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/feedback.js') }}" defer></script>
 </body>
 </html>

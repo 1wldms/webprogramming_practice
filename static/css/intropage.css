@@ -26,16 +26,22 @@ body {
   flex-wrap: nowrap;
 }
 
-/* Shared box styling */
+/* Shared style for both boxes */
 .weather-style-box {
   background: #fff;
   padding: 56px 48px;
   border-radius: 24px;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
   width: 100%;
-  max-width: 420px;
+  max-width: 420px; /* default width */
   text-align: center;
   animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Make the left box wider */
+.weather-style-box.left {
+  max-width: 650px;   /* or 640px or 700px, depending on design */
+  text-align: left;   /* optional: for better readability */
 }
 
 /* Heading styles inside boxes */
