@@ -44,6 +44,7 @@
       <a href="{{ url_for('login') }}" class="back-link">Already have an account? Login</a>
   </div>
   
+
   <button id="feedback-btn">💬 Feedback</button>
 
   <div id="feedback-modal" class="hidden">
@@ -60,14 +61,13 @@
         <textarea id="feedback-content" name="content" rows="4" required></textarea>
       </div>
   
-      <button type="submit" class="btn active">Submit</button>
-      <button type="button" class="btn" onclick="closeFeedback()">Close</button>
+      <button type="submit" class="feedback_btn active">Submit</button>
+      <button type="button" class="feedback_btn" onclick="closeFeedback()">Close</button>
     </form>
   </div>
 
-  
-  <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
   <script src="{{ url_for('static', filename='js/feedback.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
 
 
 
