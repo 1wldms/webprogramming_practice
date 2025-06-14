@@ -5,13 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Style-It | My Page</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/mypage.css') }}">
-
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/feedback.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/feedback.css') }}">
-
-
 </head>
 <body>
   <div class="box">
@@ -21,8 +18,7 @@
     <div class="password-section">
       <label for="pw"><strong>Password:</strong></label>
       <input type="password" id="pw" value="{{ password }}" readonly>
-      <button onclick="togglePW()">
-        👁️ </button>
+      <button onclick="togglePW()">👁️</button>
     </div>
 
     <h2>Style History</h2>
@@ -31,32 +27,34 @@
       <input type="date" id="search-date">
       <button id="date-filter-btn">Search</button>
     </div>
-    <div id="history-box" class='history-box'>
+
+    <div id="history-box" class="history-box">
+      <p id="no-history-msg" style="display:none; text-align:center; font-weight:600; margin-top: 5px;">
+        No history found for the selected date 😕
+      </p>
       {% if history_data %}
-          {% for date, style, query, img, city, weather_temp, weather_feels_like, rain_status, wind_status in history_data %}
-          <div class="history-card" data-date="{{ date[:10] }}">
-            <div class="history-left">
-              <div class="text-block">
-                <p class="history-title">📅 {{ date }} | 📍 {{ city }} 🎨 {{ style }}</p>
-                <p>🌡️ {{ weather_temp|int }}°C (Feels like {{ weather_feels_like|int }}°C)</p>
-                <p>{{ rain_status }} | {{ wind_status }}</p>
-                <p>🔍 {{ query }}</p>
-              </div>
-          
-              <div class="pinterest-wrapper">
-                <a href="https://www.pinterest.com/search/pins/?q={{ query|replace(' ', '+') }}" target="_blank" class="pinterest-button">
-                  <i class="fab fa-pinterest"></i> Pinterest
-                </a>
-              </div>
+        {% for date, style, query, img, city, weather_temp, weather_feels_like, rain_status, wind_status in history_data %}
+        <div class="history-card" data-date="{{ date[:10] }}">
+          <div class="history-left">
+            <div class="text-block">
+              <p class="history-title">📅 {{ date }} | 📍 {{ city }} 🎨 {{ style }}</p>
+              <p>🌡️ {{ weather_temp|int }}°C (Feels like {{ weather_feels_like|int }}°C)</p>
+              <p>{{ rain_status }} | {{ wind_status }}</p>
+              <p>🔍 {{ query }}</p>
             </div>
-          
-            <div class="history-img">
-              <img src="{{ img }}" alt="outfit image">
+            <div class="pinterest-wrapper">
+              <a href="https://www.pinterest.com/search/pins/?q={{ query|replace(' ', '+') }}" target="_blank" class="pinterest-button">
+                <i class="fab fa-pinterest"></i> Pinterest
+              </a>
             </div>
           </div>
-          {% endfor %}
+          <div class="history-img">
+            <img src="{{ img }}" alt="outfit image">
+          </div>
+        </div>
+        {% endfor %}
       {% else %}
-          <p>No History yet!</p>
+        <p>No History yet!</p>
       {% endif %}
     </div>
 
@@ -70,69 +68,72 @@
       </a>
     </div>
   </div>
-  
-  <button id="feedback-btn">💬 Feedback</button>
 
+  <!-- Feedback -->
+  <button id="feedback-btn">💬 Feedback</button>
   <div id="feedback-modal" class="hidden">
     <form id="feedback-form">
       <h2 style="margin-bottom: 20px;">💌 Feedback</h2>
-  
       <div class="form-group">
         <label for="feedback-name">Your Name</label>
         <input type="text" id="feedback-name" name="name" required />
       </div>
-  
       <div class="form-group">
         <label for="feedback-content">Your Feedback</label>
         <textarea id="feedback-content" name="content" rows="4" required></textarea>
       </div>
-  
       <button type="submit" class="btn active">Submit</button>
       <button type="button" class="btn" onclick="closeFeedback()">Close</button>
     </form>
   </div>
 
-
   <script src="{{ url_for('static', filename='js/feedback.js') }}" defer></script>
 
   <script>
-  // Toggle password visibility
-  function togglePW() {
-    const pw = document.getElementById("pw");
-    const iconButton = document.querySelector(".password-section button");
-    const isHidden = pw.type === "password";
-
-    pw.type = isHidden ? "text" : "password";
-    iconButton.innerHTML = isHidden ? "‍️" : "👁️";
-  }
-
-  // Dynamic background gradient based on mouse position
-  document.addEventListener('mousemove', e => {
-    const xPct = (e.clientX / window.innerWidth)  * 100;
-    const yPct = (e.clientY / window.innerHeight) * 100;
-    document.documentElement.style.setProperty('--x', `${xPct}%`);
-    document.documentElement.style.setProperty('--y', `${yPct}%`);
-  });
-
-  // Filter history cards by date
-  document.addEventListener('DOMContentLoaded', function () {
-    const filterBtn = document.getElementById('date-filter-btn');
-    if (filterBtn) {
-      filterBtn.addEventListener('click', function () {
-        const selectedDate = document.getElementById('date-filter').value;
-        const cards = document.querySelectorAll('.history-card');
-
-        cards.forEach(card => {
-          const cardDate = card.getAttribute('data-date');
-          if (!selectedDate || cardDate === selectedDate) {
-            card.style.display = '';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      });
+    // Toggle password visibility
+    function togglePW() {
+      const pw = document.getElementById("pw");
+      const iconButton = document.querySelector(".password-section button");
+      const isHidden = pw.type === "password";
+      pw.type = isHidden ? "text" : "password";
+      iconButton.innerHTML = isHidden ? "‍️" : "👁️";
     }
-  });
-</script>
+
+    // Dynamic background
+    document.addEventListener('mousemove', e => {
+      const xPct = (e.clientX / window.innerWidth) * 100;
+      const yPct = (e.clientY / window.innerHeight) * 100;
+      document.documentElement.style.setProperty('--x', `${xPct}%`);
+      document.documentElement.style.setProperty('--y', `${yPct}%`);
+    });
+
+    // Filter history by selected date
+    function filterHistory() {
+      const selectedDate = document.getElementById("search-date").value;
+      const cards = document.querySelectorAll(".history-card");
+      const noMsg = document.getElementById("no-history-msg");
+
+      let found = false;
+      cards.forEach(card => {
+        const cardDate = card.getAttribute("data-date");
+        if (!selectedDate || cardDate === selectedDate) {
+          card.style.display = "flex";
+          found = true;
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      noMsg.style.display = found ? "none" : "block";
+    }
+
+    // ✅ Bind filter button after DOM is loaded
+    document.addEventListener("DOMContentLoaded", function () {
+      const filterBtn = document.getElementById("date-filter-btn");
+      if (filterBtn) {
+        filterBtn.addEventListener("click", filterHistory);
+      }
+    });
+  </script>
 </body>
 </html>

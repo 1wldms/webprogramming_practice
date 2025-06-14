@@ -317,3 +317,19 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(230, 0, 35, 0.4);
 }
+
+/* --- Date filter input and button styling --- */
+.search-history-date input[type="date"],
+.search-history-date button {
+  border-radius: 8px;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  font-size: 10px;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+.search-history-date input[type="date"]:focus,
+.search-history-date button:focus {
+  border: 1px solid #ff69b4;
+}
