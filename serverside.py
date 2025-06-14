@@ -410,7 +410,6 @@ def result():
     return render_template("result.html",positions=positions,
                         city=city,
                         style=style,
-                        style_icon=style_icon,
                         temp=temp,
                         feels_like=feels_like,
                         temp_max=temp_max,
