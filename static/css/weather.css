@@ -34,27 +34,16 @@ body {
   text-align: center;
 }
 
-.weather-style-box p {
-  margin: 0 0 32px;
-  font-size: 15px;
-  line-height: 1.55;
-  color: #555;
-  text-align: center;
+.weather-style-box p{
+  margin:0 0 32px;
+  font-size:15px; line-height:1.55; color:#555; text-align:center;
 }
 
 /* form layout */
-.style-form .form-group {
-  margin-bottom: 26px;
-}
-.style-form label {
-  font-size: 15px;
-  font-weight: 500;
-  color: #444;
-}
+.style-form .form-group{margin-bottom:26px;}
+.style-form label{font-size:15px; font-weight:500; color:#444;}
 .style-form select,
-.style-form input[type="radio"] {
-  font-family: 'Poppins', sans-serif;
-}
+.style-form input[type="radio"]{font-family:'Poppins',sans-serif;}
 
 .style-form {
   width: 100%;
@@ -68,15 +57,12 @@ body {
 }
 
 #city-group label {
-  margin-bottom: 8px;
-  font-size: 16px; /* increase font size */
-  font-weight: 600; /* make it bold */
-  color: #222;
-}
+  margin-bottom: 8px; /* or 10px for a slightly larger gap */
+  }
 
 #city-group {
-  margin-bottom: 24px;
-}
+    margin-bottom: 24px; /* optional: space below the whole city selector */
+  }
 
 select {
   width: 100%;
@@ -87,6 +73,7 @@ select {
   font-size: 15px;
   background: #fff;
 }
+
 
 /* radio list heading style (new) */
 .style-label {
@@ -100,12 +87,8 @@ select {
 }
 
 /* radio list spacing */
-.form-group input[type="radio"] {
-  margin-right: 6px;
-}
-.form-group label + br {
-  line-height: 10px;
-}
+.form-group input[type="radio"]{margin-right:6px;}
+.form-group label + br{line-height:10px;} /* tighten lines */
 
 /* Make radio buttons horizontal */
 .horizontal-radio {
